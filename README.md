@@ -1,0 +1,2 @@
+# Cruella
+Python pentesting tool
