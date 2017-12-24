@@ -9,3 +9,4 @@ WARNNING
  requierments
   urllib2
   an internet connection
+  and a Google API key
