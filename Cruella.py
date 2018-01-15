@@ -51,7 +51,7 @@ while True:
         Latitude = raw_input("Latitude: " )
         Longitude = raw_input("Longitude: " )
 
-        link = raw_input("Would you like a Google Maps Link?(Y/N): ")
+        link = raw_input("Would you like to open Google Maps(Y/N): ")
         if(link==Yes):
             url = ("https://www.google.com/maps/place/0%C2%B000'00.0%22N+0%C2%B000'00.0%22E/@" + Latitude +","+ Longitude +",3647m/data=!3m1!1e3!4m5!3m4!1s0x0:0x0!8m2!3d" + Latitude +"!4d"+ Longitude)
             webbrowser.open_new_tab(url)
