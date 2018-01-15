@@ -1,4 +1,5 @@
 import urllib2
+import webbrowser
 global Yes
 global Geo
 global Domains
@@ -52,8 +53,8 @@ while True:
 
         link = raw_input("Would you like a Google Maps Link?(Y/N): ")
         if(link==Yes):
-            print(" ")
-            print("https://www.google.com/maps/place/0%C2%B000'00.0%22N+0%C2%B000'00.0%22E/@" + Latitude +","+ Longitude +",3647m/data=!3m1!1e3!4m5!3m4!1s0x0:0x0!8m2!3d" + Latitude +"!4d"+ Longitude)
+            url = ("https://www.google.com/maps/place/0%C2%B000'00.0%22N+0%C2%B000'00.0%22E/@" + Latitude +","+ Longitude +",3647m/data=!3m1!1e3!4m5!3m4!1s0x0:0x0!8m2!3d" + Latitude +"!4d"+ Longitude)
+            webbrowser.open_new_tab(url)
             print(" ")
         else:
             B = Latitude+","+Longitude +"&key="+ GoogleApiKey
