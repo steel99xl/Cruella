@@ -32,7 +32,7 @@ while True:
         print("Warnning may have massive output")
 
         site = raw_input("WEBSITE: " )
-        body = urllib2.urlopen("http://api.hackertarget.com/hostsearch/?q="+ site)
+        body = urllib2.urlopen("http://api.hackertarget.com/dnslookup/?q="+ site)
 
         write = raw_input("Do you want the ouput sent to a file?(Y/N): ")
         if(write==Yes):
