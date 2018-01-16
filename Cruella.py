@@ -23,7 +23,10 @@ while True:
         IP = raw_input("IP/WEBSITE: " )
         body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP)
         print body.read()
-        print(" ")
+        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP)
+        Latitude = body.read()[77:86]
+        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP)
+        Longitude = body.read()[98:108]
         print(" ")
 
     def domains():
@@ -46,10 +49,16 @@ while True:
 
 
     def address():
-
-        print("Enter the Latitude and Longitude to recive the address(s)")
-        Latitude = raw_input("Latitude: " )
-        Longitude = raw_input("Longitude: " )
+        global Latitude
+        if(Latitude==""):
+            print("")
+            print("")
+            print("Please run Tool 1 first")
+            print("")
+            print("")
+            main()
+        else:
+            pass
 
         link = raw_input("Would you like to open Google Maps(Y/N): ")
         if(link==Yes):
@@ -65,7 +74,7 @@ while True:
 
         print("[1] IP Geolocator ")
         print("[2] Owned Domains and IPs")
-        print("[3] Resolve Cordinets to Address(use with option [1])")
+        print("[3] Resolve to Address(use [1] first)")
 
         tool = raw_input("Select a tool: " )
 
