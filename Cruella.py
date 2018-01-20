@@ -15,7 +15,7 @@ global Address
 global No
 global B
 global GoogleApiKey
-GoogleApiKey = "AIzaSyA3y2c1FSvEFbvS1_2p-QYf90pkrr8AHOo" # You need to imput your own Google API Key to use the Address Print out (not the map link)
+GoogleApiKey = "" # You need to imput your own Google API Key to use the Address Print out (not the map link)
 Geo = "1"
 Latitude = ""
 Domains = "2"
