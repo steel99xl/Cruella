@@ -27,7 +27,17 @@ No = "N"
 OS = platform.system()
 Windows = "Windows" # Its esayer just check windows and if its not have its default to a Unix OS
 B = "" #This is just used as a blank variable to temporary store variables
-print("Cruella") # ascii art comming soon
+
+print("")
+print(" $$$$$$\                                $$\ $$\           ")
+print("$$  __$$\                               $$ |$$ |          ")
+print("$$ /  \__| $$$$$$\  $$\   $$\  $$$$$$\  $$ |$$ | $$$$$$\  ")
+print("$$ |      $$  __$$\ $$ |  $$ |$$  __$$\ $$ |$$ | \____$$\ ")
+print("$$ |      $$ |  \__|$$ |  $$ |$$$$$$$$ |$$ |$$ | $$$$$$$ |")
+print("$$ |  $$\ $$ |      $$ |  $$ |$$   ____|$$ |$$ |$$  __$$ |")
+print("\$$$$$$  |$$ |      \$$$$$$  |\$$$$$$$\ $$ |$$ |\$$$$$$$ |")
+print(" \______/ \__|       \______/  \_______|\__|\__| \_______|") # ascii art comming soon
+print(" ")
 print(" WARRNING THE ANSWERS OF (Y/N) ARE CASE SENSITIVE FOR (Y)")
 
 while True:
@@ -103,7 +113,10 @@ while True:
     def terminal():
         print("")
         print("type 'exit' to get back to tools")
-        os.system("bash")
+        if(OS == Windows):
+            os.system("start cmd") # External IP check for Windows
+        else:
+            os.system("bash")
         print("")
 
     def main():
@@ -112,7 +125,7 @@ while True:
         print("[2] Owned Domains and IPs")
         print("[3] Resolve Cordinets to Address(use with option [1])")
         print("[4] Display External IP")
-        print("[5] Terminal(does not work in Windows yet)")
+        print("[5] Terminal")
         tool = raw_input("Select a tool: " )
 
         if(tool == Geo):
