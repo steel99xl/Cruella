@@ -36,7 +36,7 @@ print("$$ |      $$  __$$\ $$ |  $$ |$$  __$$\ $$ |$$ | \____$$\ ")
 print("$$ |      $$ |  \__|$$ |  $$ |$$$$$$$$ |$$ |$$ | $$$$$$$ |")
 print("$$ |  $$\ $$ |      $$ |  $$ |$$   ____|$$ |$$ |$$  __$$ |")
 print("\$$$$$$  |$$ |      \$$$$$$  |\$$$$$$$\ $$ |$$ |\$$$$$$$ |")
-print(" \______/ \__|       \______/  \_______|\__|\__| \_______|") # ascii art comming soon
+print(" \______/ \__|       \______/  \_______|\__|\__| \_______|") # ascii art may change :)
 print(" ")
 #print(" WARRNING THE ANSWERS OF (Y/N) ARE CASE SENSITIVE FOR (Y)") Woo no longer case sensitive :)
 
