@@ -38,7 +38,7 @@ print("$$ |  $$\ $$ |      $$ |  $$ |$$   ____|$$ |$$ |$$  __$$ |")
 print("\$$$$$$  |$$ |      \$$$$$$  |\$$$$$$$\ $$ |$$ |\$$$$$$$ |")
 print(" \______/ \__|       \______/  \_______|\__|\__| \_______|") # ascii art comming soon
 print(" ")
-print(" WARRNING THE ANSWERS OF (Y/N) ARE CASE SENSITIVE FOR (Y)")
+#print(" WARRNING THE ANSWERS OF (Y/N) ARE CASE SENSITIVE FOR (Y)") Woo no longer case sensitive :)
 
 while True:
     def geo():
@@ -63,7 +63,7 @@ while True:
         body = urllib2.urlopen("http://api.hackertarget.com/dnslookup/?q="+ site)
 
         write = raw_input("Do you want the ouput sent to a file?(Y/N): ")
-        if(write==Yes):
+        if(write==Yes or write == "y"):
             f = open("OwnedHosts.txt", "w+")
             f.write(body.read())
             f.close()
@@ -91,7 +91,7 @@ while True:
         #Longitude = raw_input("Longitude: " )
 
         link = raw_input("Would you like to open Google Maps?(Y/N): ")
-        if(link==Yes):
+        if(link==Yes or link == "y"):
             url = ("https://www.google.com/maps/place/0%C2%B000'00.0%22N+0%C2%B000'00.0%22E/@" + Latitude +","+ Longitude +",3647m/data=!3m1!1e3!4m5!3m4!1s0x0:0x0!8m2!3d" + Latitude +"!4d"+ Longitude)
             webbrowser.open_new_tab(url)
             print(" ")
