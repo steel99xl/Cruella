@@ -7,6 +7,7 @@ global Windows
 global Latitude
 global Longitude
 global Yes
+global yes
 global Geo
 global Domains
 global External_IP
@@ -23,6 +24,7 @@ Address = "3"
 External_IP = "4"
 Terminal = "5"
 Yes = "Y"
+yes = "y"
 No = "N"
 OS = platform.system()
 Windows = "Windows" # Its esayer just check windows and if its not have its default to a Unix OS
@@ -36,7 +38,7 @@ print("$$ |      $$  __$$\ $$ |  $$ |$$  __$$\ $$ |$$ | \____$$\ ")
 print("$$ |      $$ |  \__|$$ |  $$ |$$$$$$$$ |$$ |$$ | $$$$$$$ |")
 print("$$ |  $$\ $$ |      $$ |  $$ |$$   ____|$$ |$$ |$$  __$$ |")
 print("\$$$$$$  |$$ |      \$$$$$$  |\$$$$$$$\ $$ |$$ |\$$$$$$$ |")
-print(" \______/ \__|       \______/  \_______|\__|\__| \_______|") # ascii art may change :)
+print(" \______/ \__|       \______/  \_______|\__|\__| \_______|")
 print(" ")
 #print(" WARRNING THE ANSWERS OF (Y/N) ARE CASE SENSITIVE FOR (Y)") Woo no longer case sensitive :)
 
@@ -63,7 +65,7 @@ while True:
         body = urllib2.urlopen("http://api.hackertarget.com/dnslookup/?q="+ site)
 
         write = raw_input("Do you want the ouput sent to a file?(Y/N): ")
-        if(write==Yes or write == "y"):
+        if(write==Yes or write == yes):
             f = open("OwnedHosts.txt", "w+")
             f.write(body.read())
             f.close()
@@ -91,7 +93,7 @@ while True:
         #Longitude = raw_input("Longitude: " )
 
         link = raw_input("Would you like to open Google Maps?(Y/N): ")
-        if(link==Yes or link == "y"):
+        if(link==Yes or link == yes):
             url = ("https://www.google.com/maps/place/0%C2%B000'00.0%22N+0%C2%B000'00.0%22E/@" + Latitude +","+ Longitude +",3647m/data=!3m1!1e3!4m5!3m4!1s0x0:0x0!8m2!3d" + Latitude +"!4d"+ Longitude)
             webbrowser.open_new_tab(url)
             print(" ")
