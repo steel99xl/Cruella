@@ -15,6 +15,7 @@ global External_IP
 global Terminal
 global Address
 global Metasploit
+global Quti
 global No
 global B
 global GoogleApiKey
@@ -26,6 +27,7 @@ Address = "3"
 External_IP = "4"
 Terminal = "5"
 Metasploit = "6"
+Quit = "7"
 Yes = "Y"
 yes = "y"
 No = "N"
@@ -140,6 +142,29 @@ while True:
         else:
             print("Launching Metasploit")
             os.system("msfconsole")
+    def quit():
+        B = raw_input("Do you want to quit Cruella? (Y/N)")
+        if(B == Yes or B == yes):
+            print("")
+            print"""
+ $$$$$$\            $$\   $$\     $$\
+$$  __$$\           \__|  $$ |    \__|
+$$ /  $$ |$$\   $$\ $$\ $$$$$$\   $$\ $$$$$$$\   $$$$$$\
+$$ |  $$ |$$ |  $$ |$$ |\_$$  _|  $$ |$$  __$$\ $$  __$$\
+$$ |  $$ |$$ |  $$ |$$ |  $$ |    $$ |$$ |  $$ |$$ /  $$ |
+$$ $$\$$ |$$ |  $$ |$$ |  $$ |$$\ $$ |$$ |  $$ |$$ |  $$ |
+\$$$$$$ / \$$$$$$  |$$ |  \$$$$  |$$ |$$ |  $$ |\$$$$$$$ |
+ \___$$$\  \______/ \__|   \____/ \__|\__|  \__| \____$$ |
+     \___|                                      $$\   $$ |
+                                                \$$$$$$  |
+                                                 \______/
+            """
+            print("")
+            os._exit(0)
+        else:
+            print("")
+            print("Returning to tool selcetion")
+            print("")
 
     def main():
 
@@ -149,6 +174,7 @@ while True:
         print("[4] Display External IP")
         print("[5] Terminal")
         print("[6] Metasploit")
+        print("[7] Quit Cruella")
         tool = raw_input("Select a tool: " )
 
         if(tool == Geo):
@@ -175,6 +201,16 @@ while True:
             metasploit()
         else:
             pass
+        if(tool == Quit):
+            quit()
+        else:
+            pass
 
         print("Select a tool")
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("")
+        print("Closing Cruella")
+        print("")
+        os._exit(0)
