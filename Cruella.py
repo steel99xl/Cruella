@@ -1,4 +1,5 @@
 import urllib2
+import re
 import platform
 import os
 import webbrowser
@@ -13,6 +14,7 @@ global Domains
 global External_IP
 global Terminal
 global Address
+global Metasploit
 global No
 global B
 global GoogleApiKey
@@ -23,6 +25,7 @@ Domains = "2"
 Address = "3"
 External_IP = "4"
 Terminal = "5"
+Metasploit = "6"
 Yes = "Y"
 yes = "y"
 No = "N"
@@ -48,13 +51,19 @@ while True:
         global Longitude
         print("Enter a website or IP")
         IP = raw_input("IP/WEBSITE: " )
-        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP)
-        print body.read()
-        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP)
-        Latitude = body.read()[77:86]
-        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP)
-        Longitude = body.read()[98:108]
-        print(" ")
+        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+        print body
+        C = body.find("Latitude")
+        C += 10
+        D = C + 10
+        Latitude = body[C:D]
+        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+        C = body.find("Longitude")
+        C += 10
+        D = C + 10
+        Longitude = body[C:D]
+        print("")
+        print("")
 
     def domains():
 
@@ -67,10 +76,10 @@ while True:
         write = raw_input("Do you want the ouput sent to a file?(Y/N): ")
         if(write==Yes or write == yes):
             f = open("OwnedHosts.txt", "w+")
-            f.write(body.read())
+            f.write(body)
             f.close()
         else:
-            print body.read()
+            print body
             print(" ")
             print(" ")
 
@@ -94,9 +103,10 @@ while True:
 
         link = raw_input("Would you like to open Google Maps?(Y/N): ")
         if(link==Yes or link == yes):
-            url = ("https://www.google.com/maps/place/0%C2%B000'00.0%22N+0%C2%B000'00.0%22E/@" + Latitude +","+ Longitude +",3647m/data=!3m1!1e3!4m5!3m4!1s0x0:0x0!8m2!3d" + Latitude +"!4d"+ Longitude)
+            url = ("https://www.google.com/maps/search/?api=1&query=" + Latitude +","+ Longitude)
             webbrowser.open_new_tab(url)
             print(" ")
+            print(url)
         else:
             B = Latitude+","+Longitude +"&key="+ GoogleApiKey
             body = urllib2.urlopen("https://maps.googleapis.com/maps/api/geocode/json?latlng="+B)
@@ -121,6 +131,16 @@ while True:
             os.system("bash")
         print("")
 
+    def metasploit():
+        B = raw_input("Would you like to update metasploit befor running (Y/N)")
+        if(B == Yes or B == yes):
+            print("Switching to root to update")
+            os.system("sudo msfupdate")
+            os.system("msfconsole")
+        else:
+            print("Launching Metasploit")
+            os.system("msfconsole")
+
     def main():
 
         print("[1] IP Geolocator ")
@@ -128,6 +148,7 @@ while True:
         print("[3] Resolve Cordinets to Address(use with option [1])")
         print("[4] Display External IP")
         print("[5] Terminal")
+        print("[6] Metasploit")
         tool = raw_input("Select a tool: " )
 
         if(tool == Geo):
@@ -150,5 +171,10 @@ while True:
             terminal()
         else:
             pass
+        if(tool == Metasploit):
+            metasploit()
+        else:
+            pass
+
         print("Select a tool")
     main()
