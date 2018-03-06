@@ -19,7 +19,7 @@ global Quti
 global No
 global B
 global GoogleApiKey
-GoogleApiKey = "" # You need to imput your own Google API Key to use the Address Print out (not the map link)
+GoogleApiKey = " " # You need to imput your own Google API Key to use the Address Print out (not the map link)
 Geo = "1"
 Latitude = ""
 Domains = "2"
@@ -34,7 +34,10 @@ No = "N"
 OS = platform.system()
 Windows = "Windows" # Its esayer just check windows and if its not have its default to a Unix OS
 B = "" #This is just used as a blank variable to temporary store variables
-
+if(OS == Windows):
+    os.system("cls")
+else:
+    os.system("clear")
 print("")
 print(" $$$$$$\                                $$\ $$\           ")
 print("$$  __$$\                               $$ |$$ |          ")
@@ -146,19 +149,17 @@ while True:
         B = raw_input("Do you want to quit Cruella? (Y/N)")
         if(B == Yes or B == yes):
             print("")
-            print"""
- $$$$$$\            $$\   $$\     $$\
-$$  __$$\           \__|  $$ |    \__|
-$$ /  $$ |$$\   $$\ $$\ $$$$$$\   $$\ $$$$$$$\   $$$$$$\
-$$ |  $$ |$$ |  $$ |$$ |\_$$  _|  $$ |$$  __$$\ $$  __$$\
-$$ |  $$ |$$ |  $$ |$$ |  $$ |    $$ |$$ |  $$ |$$ /  $$ |
-$$ $$\$$ |$$ |  $$ |$$ |  $$ |$$\ $$ |$$ |  $$ |$$ |  $$ |
-\$$$$$$ / \$$$$$$  |$$ |  \$$$$  |$$ |$$ |  $$ |\$$$$$$$ |
- \___$$$\  \______/ \__|   \____/ \__|\__|  \__| \____$$ |
-     \___|                                      $$\   $$ |
-                                                \$$$$$$  |
-                                                 \______/
-            """
+            print(" $$$$$$\            $$\   $$\     $$\ ")
+            print("$$  __$$\           \__|  $$ |    \__|")
+            print("$$ /  $$ |$$\   $$\ $$\ $$$$$$\   $$\ $$$$$$$\   $$$$$$\ ")
+            print("$$ |  $$ |$$ |  $$ |$$ |\_$$  _|  $$ |$$  __$$\ $$  __$$\ ")
+            print("$$ |  $$ |$$ |  $$ |$$ |  $$ |    $$ |$$ |  $$ |$$ /  $$ | ")
+            print("$$ $$\$$ |$$ |  $$ |$$ |  $$ |$$\ $$ |$$ |  $$ |$$ |  $$ | ")
+            print("\$$$$$$ / \$$$$$$  |$$ |  \$$$$  |$$ |$$ |  $$ |\$$$$$$$ | ")
+            print(" \___$$$\  \______/ \__|   \____/ \__|\__|  \__| \____$$ | ")
+            print("     \___|                                      $$\   $$ | ")
+            print("                                                \$$$$$$  | ")
+            print("                                                 \______/ ")
             print("")
             os._exit(0)
         else:
@@ -211,6 +212,7 @@ $$ $$\$$ |$$ |  $$ |$$ |  $$ |$$\ $$ |$$ |  $$ |$$ |  $$ |
         main()
     except KeyboardInterrupt:
         print("")
-        print("Closing Cruella")
         print("")
+        print("Closing Cruella")
+        print(" ")
         os._exit(0)
