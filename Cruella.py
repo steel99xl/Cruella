@@ -92,12 +92,22 @@ while True:
     def address():
         global Latitude
         if(Latitude==""):
+            print(" ")
+            global Latitude
+            global Longitude
+            print("Enter a website or IP")
+            IP = raw_input("IP/WEBSITE: " )
+            body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+            C = body.find("Latitude")
+            C += 10
+            D = C + 10
+            Latitude = body[C:D]
+            body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+            C = body.find("Longitude")
+            C += 10
+            D = C + 10
+            Longitude = body[C:D]
             print("")
-            print("")
-            print("Please run Tool 1 first")
-            print("")
-            print("")
-            main()
         else:
             pass
         #print(Latitude)
@@ -111,7 +121,7 @@ while True:
             url = ("https://www.google.com/maps/search/?api=1&query=" + Latitude +","+ Longitude)
             webbrowser.open_new_tab(url)
             print(" ")
-            print(url)
+            #print(url) #Debug Output
         else:
             B = Latitude+","+Longitude +"&key="+ GoogleApiKey
             body = urllib2.urlopen("https://maps.googleapis.com/maps/api/geocode/json?latlng="+B)
@@ -171,7 +181,7 @@ while True:
 
         print("[1] IP Geolocator ")
         print("[2] Owned Domains and IPs")
-        print("[3] Resolve Cordinets to Address(use with option [1])")
+        print("[3] Resolve Cordinets to Address")
         print("[4] Display External IP")
         print("[5] Terminal")
         print("[6] Metasploit")
