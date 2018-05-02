@@ -1,8 +1,9 @@
 import urllib2
-import re
 import platform
 import os
 import webbrowser
+import time
+global Mac
 global OS
 global Windows
 global Latitude
@@ -15,19 +16,22 @@ global External_IP
 global Terminal
 global Address
 global Metasploit
-global Quti
+global WebServer
+global Quit
 global No
 global B
 global GoogleApiKey
-GoogleApiKey = " " # You need to imput your own Google API Key to use the Address Print out (not the map link)
-Geo = "1"
+GoogleApiKey = "" # You need to imput your own Google API Key to use the Address Print out (not the map link)
 Latitude = ""
+Geo = "1"
 Domains = "2"
 Address = "3"
 External_IP = "4"
 Terminal = "5"
 Metasploit = "6"
-Quit = "7"
+Mac = "7"
+WebServer = "8"
+Quit = "9"
 Yes = "Y"
 yes = "y"
 No = "N"
@@ -100,33 +104,35 @@ while True:
             body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
             C = body.find("Latitude")
             C += 10
-            D = C + 10
+            D = C + 8
             Latitude = body[C:D]
             body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
             C = body.find("Longitude")
-            C += 10
+            C += 11
             D = C + 10
             Longitude = body[C:D]
             print("")
         else:
             pass
-        #print(Latitude)
-        #print(Longitude)
-        #print("Enter the Latitude and Longitude to recive the address(s)")
-        #Latitude = raw_input("Latitude: " )
-        #Longitude = raw_input("Longitude: " )
 
         link = raw_input("Would you like to open Google Maps?(Y/N): ")
         if(link==Yes or link == yes):
-            url = ("https://www.google.com/maps/search/?api=1&query=" + Latitude +","+ Longitude)
-            webbrowser.open_new_tab(url)
-            print(" ")
-            #print(url) #Debug Output
+            link = raw_input("Would you like direction to the location?(Y/N): ")
+            if(link==Yes or link == yes):
+                url = ("https://www.google.com/maps/dir/?api=1&query=" + Latitude +","+ Longitude)
+                webbrowser.open_new_tab(url)
+                print(" ") 
+            else:
+                url = ("https://www.google.com/maps/search/?api=1&query=" + Latitude +","+ Longitude)
+                webbrowser.open_new_tab(url)
+                print(" ")
+                #print(url) #Debug Output
         else:
-            B = Latitude+","+Longitude +"&key="+ GoogleApiKey
+            B = (Latitude+","+Longitude +"&key="+ GoogleApiKey)
             body = urllib2.urlopen("https://maps.googleapis.com/maps/api/geocode/json?latlng="+B)
             print body.read()
             B = ""
+
     def external_ip():
         print("")
         print("External IP:")
@@ -137,6 +143,7 @@ while True:
             os.system("dig +short myip.opendns.com @resolver1.opendns.com") # External IP check of every OS except for Windows
         print("------------")
         print("")
+
     def terminal():
         print("")
         print("type 'exit' to get back to tools")
@@ -155,9 +162,43 @@ while True:
         else:
             print("Launching Metasploit")
             os.system("msfconsole")
+
+    def mac():
+        print("Swtiching to randomly generated Mac Address")
+        C = raw_input("Please enter interface name (wlan0): ")
+        os.system("sudo openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'| xargs sudo ifconfig " + C + " ether")
+        os.system("sudo ifconfig " + C + " down")
+        os.system("sudo ifconfig " + C + " up")
+        os.system("ifconfig " + C +" | grep ether")
+
+    def webserver():
+        print("WARNNING THIS EXITS WITH ERRORS")
+
+        print("To start this Web server you need to answer some questions")
+        print("")
+        IP = raw_input("Please enter your internal or external IP : ")
+        print("")
+        print("Warning can only point to a file in a lower directory")
+        print("")
+        DIR = raw_input("Please enter the path for the file : ")
+        print("")
+        Port = raw_input("Please enter the port you want to use : ")
+        print("")
+        print("Generating custom link")
+        print("---------")
+        print(str(IP) + ":" + str(Port) + DIR)
+        print("---------")
+        time.sleep(2)
+        print("")
+        print("STARTIN WEB SERVER")
+        print("")
+        os.system("sudo python -m SimpleHTTPServer " + Port)
+        print("\n")
+        print("\n")
     def quit():
         B = raw_input("Do you want to quit Cruella? (Y/N)")
         if(B == Yes or B == yes):
+            print("")
             print("")
             print(" $$$$$$\            $$\   $$\     $$\ ")
             print("$$  __$$\           \__|  $$ |    \__|")
@@ -178,14 +219,17 @@ while True:
             print("")
 
     def main():
-
+        #Every option bellow Terminal currently does not work on Windows
+        #Except for Quit. that works on all Operating Systems
         print("[1] IP Geolocator ")
         print("[2] Owned Domains and IPs")
-        print("[3] Resolve Cordinets to Address")
+        print("[3] Resolve Website/IP to Address")
         print("[4] Display External IP")
         print("[5] Terminal")
         print("[6] Metasploit")
-        print("[7] Quit Cruella")
+        print("[7] Change Mac Address")
+        print("[8] IP Logger")
+        print("[9] Quit Cruella")
         tool = raw_input("Select a tool: " )
 
         if(tool == Geo):
@@ -210,6 +254,14 @@ while True:
             pass
         if(tool == Metasploit):
             metasploit()
+        else:
+            pass
+        if(tool == Mac):
+            mac()
+        else:
+            pass
+        if(tool == WebServer):
+            webserver()
         else:
             pass
         if(tool == Quit):
