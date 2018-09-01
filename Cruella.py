@@ -1,4 +1,5 @@
-import urllib2
+#by steel99xl
+from urllib.request import urlopen
 import platform
 import os
 import webbrowser
@@ -21,7 +22,8 @@ global Quit
 global No
 global B
 global GoogleApiKey
-GoogleApiKey = "" # You need to imput your own Google API Key to use the Address Print out (not the map link)
+GoogleApiKey = ""
+# You need to imput your own Google API Key to use the Address Print out (not the map link)
 Latitude = ""
 Geo = "1"
 Domains = "2"
@@ -59,17 +61,17 @@ while True:
         global Latitude
         global Longitude
         print("Enter a website or IP")
-        IP = raw_input("IP/WEBSITE: " )
-        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
-        print body
+        IP = input("IP/WEBSITE: " )
+        body = str(urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read())
+        print (body)
         C = body.find("Latitude")
         C += 10
-        D = C + 10
+        D = C + 9
         Latitude = body[C:D]
-        body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+        body = str(urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read())
         C = body.find("Longitude")
-        C += 10
-        D = C + 10
+        C += 12
+        D = C + 9
         Longitude = body[C:D]
         print("")
         print("")
@@ -79,68 +81,75 @@ while True:
         print("Enter website with out www. to get full out put")
         print("Warnning may have massive output")
 
-        site = raw_input("WEBSITE: " )
+        site = input("WEBSITE: " )
         body = urllib2.urlopen("http://api.hackertarget.com/dnslookup/?q="+ site)
 
-        write = raw_input("Do you want the ouput sent to a file?(Y/N): ")
+        write = input("Do you want the ouput sent to a file?(Y/N): ")
         if(write==Yes or write == yes):
             f = open("OwnedHosts.txt", "w+")
             f.write(body)
             f.close()
         else:
-            print body
+            print(body)
             print(" ")
             print(" ")
 
 
     def address():
         global Latitude
+        global Longitude
         if(Latitude==""):
             print(" ")
-            global Latitude
-            global Longitude
+            #global Latitude
+            #global Longitude
             print("Enter a website or IP")
-            IP = raw_input("IP/WEBSITE: " )
-            body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+            IP = input("IP/WEBSITE: " )
+            body = str(urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read())
+            print (body)
             C = body.find("Latitude")
             C += 10
-            D = C + 8
+            D = C + 9
             Latitude = body[C:D]
-            body = urllib2.urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read()
+            body = str(urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read())
             C = body.find("Longitude")
-            C += 11
-            D = C + 10
+            C += 12
+            D = C + 9
             Longitude = body[C:D]
+            print("")
             print("")
         else:
             pass
 
-        link = raw_input("Would you like to open Google Maps?(Y/N): ")
+        link = input("Would you like to open Google Maps?(Y/N): ")
         if(link==Yes or link == yes):
-            link = raw_input("Would you like direction to the location?(Y/N): ")
+            link = input("Would you like direction to the location?(Y/N): ")
             if(link==Yes or link == yes):
                 url = ("https://www.google.com/maps/dir/?api=1&query=" + Latitude +","+ Longitude)
                 webbrowser.open_new_tab(url)
-                print(" ") 
+                print(" ")
             else:
                 url = ("https://www.google.com/maps/search/?api=1&query=" + Latitude +","+ Longitude)
                 webbrowser.open_new_tab(url)
                 print(" ")
                 #print(url) #Debug Output
         else:
-            B = (Latitude+","+Longitude +"&key="+ GoogleApiKey)
-            body = urllib2.urlopen("https://maps.googleapis.com/maps/api/geocode/json?latlng="+B)
-            print body.read()
-            B = ""
+            print(Latitude)
+            print(Longitude)
+            #B = (Latitude+","+Longitude +"&key="+ GoogleApiKey)
+            #body = urlopen("https://maps.googleapis.com/maps/api/geocode/json?latlng="+B)
+            #print (body.read())
+            #B = ""
 
     def external_ip():
         print("")
         print("External IP:")
         print("------------")
         if(OS == Windows):
-            os.system("nslookup myip.opendns.com. resolver1.opendns.com") # External IP check for Windows
+            os.system("nslookup myip.opendns.com. resolver1.opendns.com")
+            # External IP check for Windows
         else:
-            os.system("dig +short myip.opendns.com @resolver1.opendns.com") # External IP check of every OS except for Windows
+            os.system("dig +short myip.opendns.com @resolver1.opendns.com")
+            # External IP check of every OS except for Windows
         print("------------")
         print("")
 
@@ -154,7 +163,7 @@ while True:
         print("")
 
     def metasploit():
-        B = raw_input("Would you like to update metasploit befor running (Y/N)")
+        B = input("Would you like to update metasploit befor running (Y/N)")
         if(B == Yes or B == yes):
             print("Switching to root to update")
             os.system("sudo msfupdate")
@@ -165,7 +174,7 @@ while True:
 
     def mac():
         print("Swtiching to randomly generated Mac Address")
-        C = raw_input("Please enter interface name (wlan0): ")
+        C = input("Please enter interface name (wlan0): ")
         os.system("sudo openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'| xargs sudo ifconfig " + C + " ether")
         os.system("sudo ifconfig " + C + " down")
         os.system("sudo ifconfig " + C + " up")
@@ -176,13 +185,13 @@ while True:
 
         print("To start this Web server you need to answer some questions")
         print("")
-        IP = raw_input("Please enter your internal or external IP : ")
+        IP = input("Please enter your internal or external IP : ")
         print("")
         print("Warning can only point to a file in a lower directory")
         print("")
-        DIR = raw_input("Please enter the path for the file : ")
+        DIR = input("Please enter the path for the file : ")
         print("")
-        Port = raw_input("Please enter the port you want to use : ")
+        Port = input("Please enter the port you want to use : ")
         print("")
         print("Generating custom link")
         print("---------")
@@ -196,7 +205,7 @@ while True:
         print("\n")
         print("\n")
     def quit():
-        B = raw_input("Do you want to quit Cruella? (Y/N)")
+        B = input("Do you want to quit Cruella? (Y/N)")
         if(B == Yes or B == yes):
             print("")
             print("")
@@ -230,7 +239,7 @@ while True:
         print("[7] Change Mac Address")
         print("[8] IP Logger")
         print("[9] Quit Cruella")
-        tool = raw_input("Select a tool: " )
+        tool = input("Select a tool: " )
 
         if(tool == Geo):
             geo()
