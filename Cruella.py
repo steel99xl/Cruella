@@ -1,5 +1,6 @@
 #by steel99xl
 #yes i know this is a complete fucking mess
+#truest me it only gets worse from here
 from urllib.request import urlopen
 import platform
 import os
